@@ -4,3 +4,4 @@ python:
 install:
   - pip install -r requirements/ci.txt
 script: coverage run --source='allz,user' manage.py test
+after_success: coveralls
