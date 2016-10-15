@@ -3,13 +3,17 @@ import uuid
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
+
 class AllZUserManager(BaseUserManager):
 
-    def create_user(self, email:str, password:str=None):
+    def create_user(self, email:str, username:str, password:str=None):
         if not email:
             raise ValueError('Users must have an email address')
 
-        user = self.model(email=self.normalize_email(email))
+        user = self.model(
+            email=self.normalize_email(email),
+            username=username,
+        )
 
         user.set_password(password)
         user.save(using=self._db)
@@ -24,6 +28,7 @@ class AllZUser(AbstractBaseUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
     email = models.EmailField(max_length=255, unique=True)
+    username = models.CharField(max_length=60, blank=True)
     first_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=30, blank=True)
 
