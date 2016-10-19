@@ -7,6 +7,7 @@ from .models import AllZUser
 
 class AllZUserTestCase(TestCase):
 
+    #FIXME add facebook social auth test
     def test_user_create(self):
         email, username, password = "test@test.com", "username", "password"
 
