@@ -28,7 +28,7 @@ class AllZUser(AbstractBaseUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
     email = models.EmailField(max_length=255, unique=True)
-    username = models.CharField(max_length=60, blank=True)
+    username = models.CharField(max_length=60)
     first_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=30, blank=True)
 

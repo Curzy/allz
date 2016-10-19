@@ -8,13 +8,14 @@ from .models import AllZUser
 class AllZUserTestCase(TestCase):
 
     def test_user_create(self):
-        email, password = "test@test.com", "password"
+        email, username, password = "test@test.com", "username", "password"
 
-        _ = AllZUser.objects.create_user(email, password)
+        _ = AllZUser.objects.create_user(email, username, password)
         user = AllZUser.objects.get(email=email)
 
         self.assertTrue(isinstance(user.id, uuid.UUID))
         self.assertEqual(user.email, email)
+        self.assertEqual(user.username, username)
         self.assertTrue(user.check_password(password))
 
         first_name, last_name = 'first', 'last'
