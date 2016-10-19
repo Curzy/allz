@@ -1,8 +1,10 @@
 import uuid
 
 from django.test import TestCase
+from django.test.client import RequestFactory
 
 from .models import AllZUser
+from .views import IndexView
 
 
 class AllZUserTestCase(TestCase):
@@ -28,3 +30,14 @@ class AllZUserTestCase(TestCase):
         self.assertNotEqual(user.created_at, user.modified_at)
         self.assertEqual(user.first_name, first_name)
         self.assertEqual(user.last_name, last_name)
+
+
+class IndexPageTest(TestCase):
+
+    def setUp(self):
+        self.factory = RequestFactory()
+
+    def test_index_page_response(self):
+        request = self.factory.get('/')
+        response = IndexView.as_view()(request)
+        self.assertEqual(response.status_code, 200)
